@@ -1,0 +1,4 @@
+rootProject.name='MySkin'
+include ':app'
+include ':skinlibrary'
+include ':skinpackage'

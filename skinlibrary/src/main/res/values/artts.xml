@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextView控件属性 -->
+    <declare-styleable name="SkinnableTextView">
+        <attr name="android:background" />
+        <attr name="android:textColor" />
+        <!-- 字体属性 -->
+        <attr name="custom_typeface" />
+    </declare-styleable>
+
+    <!-- ImageView控件特有属性 -->
+    <declare-styleable name="SkinnableImageView">
+        <attr name="android:src" />
+        <attr name="android:background" />
+    </declare-styleable>
+
+
+
+    <!-- Button控件继承TextView，此处parent语法通过，但无效果，不像style.xml -->
+    <declare-styleable name="SkinnableButton">
+        <attr name="android:background" />
+        <attr name="android:textColor" />
+        <!-- 字体属性 -->
+        <attr name="custom_typeface" />
+    </declare-styleable>
+
+
+
+    <!-- SkinnableEditView -->
+    <declare-styleable name="SkinnableEditView">
+        <attr name="android:background" />
+        <attr name="android:textColor" />
+        <attr name="android:textColorHint" />
+    </declare-styleable>
+
+
+    <!-- SkinnableSpinner -->
+    <declare-styleable name="SkinnableSpinner">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <!-- SkinnableImageButton -->
+    <declare-styleable name="SkinnableImageButton">
+        <attr name="android:background" />
+        <attr name="android:src" />
+    </declare-styleable>
+
+
+    <!-- SkinnableCheckBox-->
+    <declare-styleable name="SkinnableCheckBox">
+        <attr name="android:background" />
+        <attr name="android:drawableBottom" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawableRight" />
+        <attr name="android:drawableTop" />
+    </declare-styleable>
+
+
+
+    <!-- SkinnableRadioButton-->
+    <declare-styleable name="SkinnableRadioButton">
+        <attr name="android:drawableBottom" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawableRight" />
+        <attr name="android:drawableTop" />
+    </declare-styleable>
+
+    <!-- SkinnableCheckedTextView-->
+    <declare-styleable name="SkinnableCheckedTextView">
+        <attr name="android:drawableBottom" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawableRight" />
+        <attr name="android:drawableTop" />
+        <attr name="android:background" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+
+
+    <!-- SkinnableAutoCompleteTextView-->
+    <declare-styleable name="SkinnableAutoCompleteTextView">
+        <attr name="android:drawableBottom" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawableRight" />
+        <attr name="android:drawableTop" />
+        <attr name="android:background" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+
+
+    <!-- SkinnableSeekBar -->
+    <declare-styleable name="SkinnableSeekBar">
+        <attr name="android:background" />
+    </declare-styleable>
+
+
+
+    <!-- SkinnableLinearLayout控件 -->
+    <declare-styleable name="SkinnableLinearLayout">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <!-- SkinnableRelativeLayout控件 -->
+    <declare-styleable name="SkinnableRelativeLayout">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <!-- SkinnableConstraintLayout控件 -->
+    <declare-styleable name="SkinnableConstraintLayout">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <!-- SkinnableFrameLayout控件 -->
+    <declare-styleable name="SkinnableFrameLayout">
+        <attr name="android:background" />
+    </declare-styleable>
+
+
+
+
+</resources>
