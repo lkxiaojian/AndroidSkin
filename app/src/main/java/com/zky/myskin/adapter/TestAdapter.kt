@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zky.myskin.R
+import com.zky.myskin.activitys.BaseHolder
 
 /**
  * Created by lk
@@ -13,9 +14,7 @@ import com.zky.myskin.R
  * Time 15:57
  * Detail:
  */
-class TestAdapter(private val data:List<String>) :RecyclerView.Adapter<TestAdapter.TestAdapterHodler> (){
-
-
+class TestAdapter(private val data: List<String>) : RecyclerView.Adapter<TestAdapter.TestAdapterHodler>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestAdapterHodler {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, null)
         return TestAdapterHodler(view)
@@ -23,17 +22,18 @@ class TestAdapter(private val data:List<String>) :RecyclerView.Adapter<TestAdapt
     }
 
     override fun getItemCount(): Int {
-        return if(data.isNullOrEmpty()) 0 else data.size
+        return if (data.isNullOrEmpty()) 0 else data.size
     }
 
     override fun onBindViewHolder(holder: TestAdapterHodler, position: Int) {
-        val bean=  data[position]
-        holder.atvText.text=bean
+        val bean = data[position]
+        holder.setIsRecyclable(false)
+        holder.atvText.text = bean
     }
 
 
-    inner class TestAdapterHodler(itemView: View):RecyclerView.ViewHolder(itemView){
+   inner class TestAdapterHodler(itemView: View) : BaseHolder(itemView) {
         var atvText = itemView.findViewById(R.id.atv_text) as TextView
-
     }
+
 }

@@ -18,7 +18,8 @@ import com.zky.skinlibrary.core.ViewsMatch
  */
 class SkinnableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.textViewStyle) : AppCompatTextView(context, attrs, defStyleAttr), ViewsMatch {
     private val attrsBean: AttrsBean
-    override fun skinnableView() { // 根据自定义属性，获取styleable中的background属性
+    override fun skinnableView() {
+        // 根据自定义属性，获取styleable中的background属性
         var key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_background]
         // 根据styleable获取控件某属性的resourceId
         val backgroundResourceId = attrsBean.getViewResource(key)
@@ -40,6 +41,8 @@ class SkinnableTextView @JvmOverloads constructor(context: Context, attrs: Attri
                 }
             }
         }
+
+
         // 根据自定义属性，获取styleable中的textColor属性
         key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_textColor]
         val textColorResourceId = attrsBean.getViewResource(key)
@@ -62,6 +65,36 @@ class SkinnableTextView @JvmOverloads constructor(context: Context, attrs: Attri
                 instance!!.getTypeface(textTypefaceResourceId)
             }
         }
+
+
+//
+//        // 根据自定义属性，获取styleable中的background属性
+//         key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableBottom]
+//        // 根据styleable获取控件某属性的resourceId
+//        val dbResourceId = attrsBean.getViewResource(key)
+//        if (dbResourceId > 0) { // 是否默认皮肤
+//            if (instance!!.isDefaultSkin) { // 兼容包转换
+//                val drawable = ContextCompat.getDrawable(context, dbResourceId)
+//                setCompoundDrawables(null,null,drawable,null)
+//
+//            } else { // 获取皮肤包资源
+//                val skinResourceId = instance!!.getBackgroundOrSrc(dbResourceId)
+//                // 兼容包转换
+//
+//                if (skinResourceId is Int) {
+//                    val drawable = skinResourceId as Drawable?
+//                    setCompoundDrawables(null,drawable,null,null)
+//                } else {
+//                    val drawable = skinResourceId as Drawable?
+//                    setCompoundDrawables(null,drawable,null,null)
+//
+//                }
+//            }
+//        }
+
+
+
+
     }
 
     init {

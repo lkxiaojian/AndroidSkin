@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.core.view.LayoutInflaterCompat
 import com.zky.skinlibrary.core.CustomAppCompatViewInflater
-import com.zky.skinlibrary.core.ViewsMatch
 import com.zky.skinlibrary.utils.ActionBarUtils.forActionBar
 import com.zky.skinlibrary.utils.NavigationUtils
 import com.zky.skinlibrary.utils.StatusBarUtils
@@ -25,7 +24,7 @@ import com.zky.skinlibrary.utils.StatusBarUtils
  * 2、重写openChangeSkin()方法
  */
 open class SkinActivity : AppCompatActivity() {
-    private var viewInflater: CustomAppCompatViewInflater? = null
+     var viewInflater: CustomAppCompatViewInflater? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         val layoutInflater = LayoutInflater.from(this)
         LayoutInflaterCompat.setFactory2(layoutInflater, this)
@@ -51,6 +50,32 @@ open class SkinActivity : AppCompatActivity() {
         return false
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected open fun defaultSkin(themeColorId: Int) {
+        skinDynamic(null, themeColorId)
+    }
+
+    /**
+     * 动态换肤（api限制：5.0版本）
+     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected open fun skinDynamic(skinPath: String?, themeColorId: Int) {
+        if(  SkinManager.instance==null){
+            throw Exception("SkinManager has not initialized,please use SkinManager.init(application) in Application")
+
+        }
+        SkinManager.instance?.loaderSkinResources(skinPath)
+        if (themeColorId != 0) {
+            val themeColor: Int = SkinManager.instance!!.getColor(themeColorId)
+            StatusBarUtils.forStatusBar(this, themeColor)
+            NavigationUtils.forNavigation(this, themeColor)
+            forActionBar(this, themeColor)
+        }
+        SkinManager.instance?.applyViews(window.decorView)
+    }
+
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected fun setDayNightMode(@NightMode nightMode: Int) {
         val isPost21 = Build.VERSION.SDK_INT >= 21
@@ -63,23 +88,8 @@ open class SkinActivity : AppCompatActivity() {
             NavigationUtils.forNavigation(this)
         }
         val decorView = window.decorView
-        applyDayNightForView(decorView)
+        SkinManager.instance?. applyViews(decorView)
     }
 
-    /**
-     * 回调接口 给具体控件换肤操作
-     */
-     fun applyDayNightForView(view: View?) {
-        if (view is ViewsMatch) {
-            val viewsMatch = view as ViewsMatch
-            viewsMatch.skinnableView()
-        }
-        if (view is ViewGroup) {
-            val parent = view
-            val childCount = parent.childCount
-            for (i in 0 until childCount) {
-                applyDayNightForView(parent.getChildAt(i))
-            }
-        }
-    }
+
 }

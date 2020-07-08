@@ -11,19 +11,18 @@
         android:id="@+id/bt_night"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="日间夜间模式切换"
+        android:text="日间夜间模式切换 （静态）"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bt_frament"
+        android:id="@+id/bt_dynamic"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Fragment"
+        android:text="动态加载皮肤包"
         android:textSize="18sp"
         android:textAllCaps="false"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/bt_night" />
 
 

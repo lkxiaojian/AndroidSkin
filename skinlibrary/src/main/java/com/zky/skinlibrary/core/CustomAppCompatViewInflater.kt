@@ -31,25 +31,41 @@ class CustomAppCompatViewInflater(mContext: Context) {
      */
     fun autoMatch(): View? {
         var view: View? = null
+        if(name.isNullOrBlank()){
+            return null
+        }
 
-        when (name) {
-            "LinearLayout" -> {
+        when  {
+            "LinearLayout"==name -> {
                 view = context?.let { SkinnableLinearLayout(it, attrs) }
                 verifyNotNull(view, name!!)
             }
-            "RelativeLayout" -> {
+            "RelativeLayout"==name -> {
                 view = SkinnableRelativeLayout(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            "TextView" -> {
+            name!!.contains("AppCompatTextView")||
+            "TextView"==name  -> {
                 view = SkinnableTextView(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            "ImageView" -> {
+            "ImageView" ==name-> {
                 view = SkinnableImageView(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            "Button" -> {
+            "Button"==name -> {
+                view = SkinnableButton(context, attrs)
+                verifyNotNull(view, name!!)
+            }
+           name!!.contains("ConstraintLayout")->{
+                view=SkinnableConstraintLayout(context, attrs)
+                verifyNotNull(view, name!!)
+            }
+            name!!.contains("Button")->{
+                view = SkinnableButton(context, attrs)
+                verifyNotNull(view, name!!)
+            }
+            name!!.contains("ImageView")->{
                 view = SkinnableButton(context, attrs)
                 verifyNotNull(view, name!!)
             }

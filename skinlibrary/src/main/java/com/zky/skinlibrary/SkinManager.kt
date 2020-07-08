@@ -9,6 +9,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import com.zky.skinlibrary.core.ViewsMatch
 import com.zky.skinlibrary.model.SkinCache
 import java.util.*
 
@@ -153,6 +156,24 @@ class SkinManager private constructor(private val application: Application) {
             }
         }
 
+    }
+
+
+    /**
+     * 回调接口 给具体控件换肤操作
+     */
+    fun applyViews(view: View?) {
+        if (view is ViewsMatch) {
+            val viewsMatch = view as ViewsMatch
+            viewsMatch.skinnableView()
+        }
+        if (view is ViewGroup) {
+            val parent = view
+            val childCount = parent.childCount
+            for (i in 0 until childCount) {
+                applyViews(parent.getChildAt(i))
+            }
+        }
     }
 
     init {
