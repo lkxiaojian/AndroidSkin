@@ -62,7 +62,9 @@ RecycleView
 两种方式 1.把recycleView 复用关闭 holder.setIsRecyclable(true) (不建议)
 在viewHodle 中调用 SkinManager.instance?.applyViews(view)
 
+
 public class BaseHolder extends RecyclerView.ViewHolder{
+
     public BaseHolder(@NonNull View itemView) {
         super(itemView);
         SkinManager.Companion.getInstance().applyViews(itemView);
@@ -70,7 +72,7 @@ public class BaseHolder extends RecyclerView.ViewHolder{
 }
 
 
-3原理
+3原理  排版有问题 查看 Android Skin 换肤.html
 
 3.1静态换肤
     
