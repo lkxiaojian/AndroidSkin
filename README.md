@@ -2,23 +2,33 @@
 
 1引用
  1.1 Add it in your root build.gradle at the end of repositories:
- 
+ ..
    allprojects {
         repositories {
             ...
             maven { url 'https://jitpack.io' }
         }
     }
+    
+  ..
 
  1.2 Add the dependency
+ 
    dependencies {
-       implementation 'com.github.lkxiaojian:AndroidSkin:Tag'
+       implementation 'com.github.lkxiaojian:AndroidSkin:1.0.2'
      }Ï
+     
+     
 2使用
+
   1.如果使用静态皮肤包 就别集成框架了 直接设置
+  
 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES. //日间
+
 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO//夜间
+
 即可 （查看3.1静态换肤）
+
 2.2  
   在Application 中调用 SkinManager.init(this)
     Activity 
