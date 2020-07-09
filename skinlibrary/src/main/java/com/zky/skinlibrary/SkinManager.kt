@@ -20,14 +20,14 @@ import java.util.*
  * 加载应用资源（app内置：res/xxx） or 存储资源（下载皮肤包：net163.skin）
  */
 class SkinManager private constructor(private val application: Application) {
-    private val appResources // 用于加载app内置资源
-            : Resources
-    private var skinResources // 用于加载皮肤包资源
-            : Resources? = null
-    private var skinPackageName // 皮肤包资源所在包名（注：皮肤包不在app内，也不限包名）
-            : String? = null
-    var isDefaultSkin = true // 应用默认皮肤（app内置）
-        private set
+    // 用于加载app内置资源
+    private val appResources: Resources = application.resources
+    // 用于加载皮肤包资源
+    private var skinResources: Resources? = null
+    // 皮肤包资源所在包名（注：皮肤包不在app内，也不限包名）
+    private var skinPackageName: String? = null
+    // 应用默认皮肤（app内置）
+    var isDefaultSkin = true
     private val cacheSkin: MutableMap<String?, SkinCache?>
     /**
      * 加载皮肤包资源
@@ -60,7 +60,7 @@ class SkinManager private constructor(private val application: Application) {
             //==============================================================================
 // 如果还是担心@hide限制，可以反射addAssetPathInternal()方法，参考源码366行 + 387行
 //==============================================================================
-// 创建加载外部的皮肤包(net163.skin)文件Resources（注：依然是本应用加载）
+// 创建加载外部的皮肤包()文件Resources（注：依然是本应用加载）
             skinResources = Resources(assetManager,
                     appResources.displayMetrics, appResources.configuration)
             // 根据apk文件路径（皮肤包也是apk文件），获取该应用的包名。兼容5.0 - 9.0（亲测）
@@ -86,13 +86,13 @@ class SkinManager private constructor(private val application: Application) {
      * @param resourceId 资源ID值
      * @return 如果没有皮肤包则加载app内置资源ID，反之加载皮肤包指定资源ID
      */
-    private fun getSkinResourceIds(resourceId: Int): Int { // 优化：如果没有皮肤包或者没做换肤动作，直接返回app内置资源！
+    private fun getSkinResourceIds(resourceId: Int): Int {
+        // 如果没有皮肤包或者没做换肤动作，直接返回app内置资源！
         if (isDefaultSkin) return resourceId
         // 使用app内置资源加载，是因为内置资源与皮肤包资源一一对应（“netease_bg”, “drawable”）
         val resourceName = appResources.getResourceEntryName(resourceId)
         val resourceType = appResources.getResourceTypeName(resourceId)
         // 动态获取皮肤包内的指定资源ID
-// getResources().getIdentifier(“netease_bg”, “drawable”, “com.netease.skin.packages”);
         val skinResourceId = skinResources!!.getIdentifier(resourceName, resourceType, skinPackageName)
         // 源码1924行：(0 is not a valid resource ID.)
         isDefaultSkin = skinResourceId == 0
@@ -123,13 +123,15 @@ class SkinManager private constructor(private val application: Application) {
 
     // 返回值特殊情况：可能是color / drawable / mipmap
     fun getBackgroundOrSrc(resourceId: Int): Any? { // 需要获取当前属性的类型名Resources.getResourceTypeName(resourceId)再判断
-        val resourceTypeName = appResources.getResourceTypeName(resourceId)
-        when (resourceTypeName) {
+        when (appResources.getResourceTypeName(resourceId)) {
             "color" -> return getColor(resourceId)
             "mipmap", "drawable" -> return getDrawableOrMipMap(resourceId)
+            "drawableBottom","drawableLeft","drawableRight","drawableTop"->return  getDrawableOrMipMap(resourceId)
         }
         return null
     }
+
+
 
     // 获得字体
     fun getTypeface(resourceId: Int): Typeface { // 通过资源ID获取资源path，参考：resources.arsc资源映射表
@@ -141,7 +143,6 @@ class SkinManager private constructor(private val application: Application) {
 
     companion object {
         var instance: SkinManager? = null
-            private set
         private const val ADD_ASSET_PATH = "addAssetPath" // 方法名
         /**
          * 单例方法，目的是初始化app内置资源（越早越好，用户的操作可能是：换肤后的第2次冷启动）
@@ -177,7 +178,6 @@ class SkinManager private constructor(private val application: Application) {
     }
 
     init {
-        appResources = application.resources
         cacheSkin = HashMap()
     }
 }

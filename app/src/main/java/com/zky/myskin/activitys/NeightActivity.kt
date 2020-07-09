@@ -51,7 +51,6 @@ class NeightActivity : SkinActivity() {
             skinPath = (
                     "${File.separator}mnt${File.separator}sdcard${File.separator}mySkin${File.separator}mySkin.skin.apk")
             // 运行时权限申请（6.0+）
-            // 运行时权限申请（6.0+）
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val perms = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 if (checkSelfPermission(perms[0]) === PackageManager.PERMISSION_DENIED) {

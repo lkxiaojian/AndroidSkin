@@ -14,7 +14,7 @@ import com.zky.skinlibrary.view.*
 class CustomAppCompatViewInflater(mContext: Context) {
     private var name // 控件名
             : String? = null
-    private var context=mContext
+    private var context = mContext
     private var attrs // 某控件对应所有属性
             : AttributeSet? = null
 
@@ -31,44 +31,38 @@ class CustomAppCompatViewInflater(mContext: Context) {
      */
     fun autoMatch(): View? {
         var view: View? = null
-        if(name.isNullOrBlank()){
+        if (name.isNullOrBlank()) {
             return null
         }
 
-        when  {
-            "LinearLayout"==name -> {
+        when {
+            name!!.contains("LinearLayout") -> {
                 view = context?.let { SkinnableLinearLayout(it, attrs) }
                 verifyNotNull(view, name!!)
             }
-            "RelativeLayout"==name -> {
+            name!!.contains("RelativeLayout") -> {
                 view = SkinnableRelativeLayout(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            name!!.contains("AppCompatTextView")||
-            "TextView"==name  -> {
+            name!!.contains("AppCompatTextView") ||
+                    "TextView" == name -> {
                 view = SkinnableTextView(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            "ImageView" ==name-> {
+            name!!.contains("ImageView") -> {
                 view = SkinnableImageView(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            "Button"==name -> {
+            name!!.contains("Button") -> {
                 view = SkinnableButton(context, attrs)
                 verifyNotNull(view, name!!)
             }
-           name!!.contains("ConstraintLayout")->{
-                view=SkinnableConstraintLayout(context, attrs)
+            name!!.contains("ConstraintLayout") -> {
+                view = SkinnableConstraintLayout(context, attrs)
                 verifyNotNull(view, name!!)
             }
-            name!!.contains("Button")->{
-                view = SkinnableButton(context, attrs)
-                verifyNotNull(view, name!!)
-            }
-            name!!.contains("ImageView")->{
-                view = SkinnableButton(context, attrs)
-                verifyNotNull(view, name!!)
-            }
+
+
         }
         return view
     }

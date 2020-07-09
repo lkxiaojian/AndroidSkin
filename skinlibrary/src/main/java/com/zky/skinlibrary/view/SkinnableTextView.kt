@@ -17,7 +17,8 @@ import com.zky.skinlibrary.core.ViewsMatch
  * 86行 + 138行 + 206行
  */
 class SkinnableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.textViewStyle) : AppCompatTextView(context, attrs, defStyleAttr), ViewsMatch {
-    private val attrsBean: AttrsBean
+    private val attrsBean: AttrsBean = AttrsBean()
+
     override fun skinnableView() {
         // 根据自定义属性，获取styleable中的background属性
         var key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_background]
@@ -68,37 +69,92 @@ class SkinnableTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 
 //
-//        // 根据自定义属性，获取styleable中的background属性
-//         key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableBottom]
-//        // 根据styleable获取控件某属性的resourceId
-//        val dbResourceId = attrsBean.getViewResource(key)
-//        if (dbResourceId > 0) { // 是否默认皮肤
-//            if (instance!!.isDefaultSkin) { // 兼容包转换
-//                val drawable = ContextCompat.getDrawable(context, dbResourceId)
-//                setCompoundDrawables(null,null,drawable,null)
-//
-//            } else { // 获取皮肤包资源
-//                val skinResourceId = instance!!.getBackgroundOrSrc(dbResourceId)
-//                // 兼容包转换
-//
-//                if (skinResourceId is Int) {
-//                    val drawable = skinResourceId as Drawable?
-//                    setCompoundDrawables(null,drawable,null,null)
-//                } else {
-//                    val drawable = skinResourceId as Drawable?
-//                    setCompoundDrawables(null,drawable,null,null)
-//
-//                }
-//            }
-//        }
+//        // 根据自定义属性，获取styleable中的 drawableBottom top left right属性
+        var dbkey = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableBottom]
+        var dtkey = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableTop]
+        var dlkey = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableLeft]
+        var drkey = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_android_drawableRight]
+
+        // 根据styleable获取控件某属性的resourceId
+        val dbResourceId = attrsBean.getViewResource(dbkey)
+        val dtResourceId = attrsBean.getViewResource(dtkey)
+        val dlResourceId = attrsBean.getViewResource(dlkey)
+        val drResourceId = attrsBean.getViewResource(drkey)
+        //bottom
+        var drawableDb: Drawable? = null
+        if (dbResourceId > 0) {
+            drawableDb = if(instance!!.isDefaultSkin){
+                ContextCompat.getDrawable(context, dbResourceId)
+            }else{
+                val backgroundOrSrc = instance!!.getBackgroundOrSrc(dbResourceId)
+
+                if (backgroundOrSrc is Int ) {
+                    ContextCompat.getDrawable(context, backgroundOrSrc)
+                } else {
+                    backgroundOrSrc as Drawable
+                }
+            }
+
+            drawableDb?.setBounds(0, 0, drawableDb?.intrinsicWidth, drawableDb?.intrinsicHeight)
+        }
+        //top
+        var drawableDt: Drawable? = null
+        if (dtResourceId > 0) {
+            drawableDt = if(instance!!.isDefaultSkin){
+                ContextCompat.getDrawable(context, dtResourceId)
+            }else{
+                val backgroundOrSrc = instance!!.getBackgroundOrSrc(dtResourceId)
+                if (backgroundOrSrc is Int ) {
+                    ContextCompat.getDrawable(context, backgroundOrSrc)
+                } else {
+                    backgroundOrSrc as Drawable
+                }
+            }
 
 
+            drawableDt?.setBounds(0, 0, drawableDt?.intrinsicWidth, drawableDt?.intrinsicHeight)
+        }
+        //left
+        var drawableDl: Drawable? = null
+        if (dlResourceId > 0) {
+            drawableDl = if(instance!!.isDefaultSkin){
+                ContextCompat.getDrawable(context, dlResourceId)
+            }else{
+                val backgroundOrSrc = instance!!.getBackgroundOrSrc(dlResourceId)
+                if (backgroundOrSrc is Int ) {
+                    ContextCompat.getDrawable(context, backgroundOrSrc)
+                } else {
+                    backgroundOrSrc as Drawable
+                }
+
+            }
 
 
+            drawableDl?.setBounds(0, 0, drawableDl?.intrinsicWidth, drawableDl?.intrinsicHeight)
+        }
+
+        //right
+        var drawableDr: Drawable? = null
+        if (drResourceId > 0) {
+            drawableDr=  if(instance!!.isDefaultSkin){
+                ContextCompat.getDrawable(context, drResourceId)
+            }else{
+                val backgroundOrSrc = instance!!.getBackgroundOrSrc(drResourceId)
+                if (backgroundOrSrc is Int ) {
+                    ContextCompat.getDrawable(context, backgroundOrSrc)
+                } else {
+                    backgroundOrSrc as Drawable
+                }
+            }
+
+
+            drawableDr?.setBounds(0, 0, drawableDr?.intrinsicWidth, drawableDr?.intrinsicHeight)
+        }
+        //left, top, right, bottom
+        setCompoundDrawables(drawableDl, drawableDt, drawableDr, drawableDb)
     }
 
     init {
-        attrsBean = AttrsBean()
         // 根据自定义属性，匹配控件属性的类型集合，如：background + textColor
         val typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.SkinnableTextView,

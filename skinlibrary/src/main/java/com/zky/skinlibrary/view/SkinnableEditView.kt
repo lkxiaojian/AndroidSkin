@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.netease.skin.library.model.AttrsBean
 import com.zky.skinlibrary.R
@@ -16,10 +16,10 @@ import com.zky.skinlibrary.core.ViewsMatch
  * 参考：AppCompatViewInflater.java
  * 86行 + 138行 + 206行
  */
-class SkinnableButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.buttonStyle) : AppCompatButton(context, attrs, defStyleAttr), ViewsMatch {
+class SkinnableEditView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.buttonStyle) : AppCompatEditText(context, attrs, defStyleAttr), ViewsMatch {
     private val attrsBean: AttrsBean = AttrsBean()
     override fun skinnableView() { // 根据自定义属性，获取styleable中的background属性
-        var key = R.styleable.SkinnableButton[R.styleable.SkinnableButton_android_background]
+        var key = R.styleable.SkinnableEditView[R.styleable.SkinnableEditView_android_background]
         // 根据styleable获取控件某属性的resourceId
         val backgroundResourceId = attrsBean.getViewResource(key)
         if (backgroundResourceId > 0) { // 是否默认皮肤
@@ -41,7 +41,7 @@ class SkinnableButton @JvmOverloads constructor(context: Context, attrs: Attribu
             }
         }
         // 根据自定义属性，获取styleable中的textColor属性
-        key = R.styleable.SkinnableButton[R.styleable.SkinnableButton_android_textColor]
+        key = R.styleable.SkinnableEditView[R.styleable.SkinnableEditView_android_textColor]
         val textColorResourceId = attrsBean.getViewResource(key)
         if (textColorResourceId > 0) {
             if (instance!!.isDefaultSkin) {
@@ -52,8 +52,24 @@ class SkinnableButton @JvmOverloads constructor(context: Context, attrs: Attribu
                 setTextColor(color)
             }
         }
+
+        // 根据自定义属性，获取styleable中的 textColorHint 属性
+        key = R.styleable.SkinnableEditView[R.styleable.SkinnableEditView_android_textColorHint]
+        val textColorHintResourceId = attrsBean.getViewResource(key)
+        if (textColorHintResourceId > 0) {
+            if (instance!!.isDefaultSkin) {
+                val color = ContextCompat.getColorStateList(context, textColorHintResourceId)
+                setTextColor(color)
+            } else {
+                val color = instance!!.getColorStateList(textColorHintResourceId)
+                setTextColor(color)
+            }
+        }
+
+
+
         // 根据自定义属性，获取styleable中的字体 custom_typeface 属性
-        key = R.styleable.SkinnableTextView[R.styleable.SkinnableTextView_custom_typeface]
+        key = R.styleable.SkinnableEditView[R.styleable.SkinnableEditView_custom_typeface]
         val textTypefaceResourceId = attrsBean.getViewResource(key)
         if (textTypefaceResourceId > 0) {
             typeface = if (instance!!.isDefaultSkin) {
@@ -67,10 +83,10 @@ class SkinnableButton @JvmOverloads constructor(context: Context, attrs: Attribu
     init {
         // 根据自定义属性，匹配控件属性的类型集合，如：background + textColor
         val typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.SkinnableButton,
+                R.styleable.SkinnableEditView,
                 defStyleAttr, 0)
         // 存储到临时JavaBean对象
-        attrsBean.saveViewResource(typedArray, R.styleable.SkinnableButton)
+        attrsBean.saveViewResource(typedArray, R.styleable.SkinnableEditView)
         // 这一句回收非常重要！obtainStyledAttributes()有语法提示！！
         typedArray.recycle()
     }

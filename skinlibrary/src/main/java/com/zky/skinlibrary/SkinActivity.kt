@@ -63,7 +63,6 @@ open class SkinActivity : AppCompatActivity() {
     protected open fun skinDynamic(skinPath: String?, themeColorId: Int) {
         if(  SkinManager.instance==null){
             throw Exception("SkinManager has not initialized,please use SkinManager.init(application) in Application")
-
         }
         SkinManager.instance?.loaderSkinResources(skinPath)
         if (themeColorId != 0) {

@@ -13,7 +13,7 @@ import com.zky.skinlibrary.SkinManager.Companion.instance
 import com.zky.skinlibrary.core.ViewsMatch
 
 class SkinnableRelativeLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr), ViewsMatch {
-    private val attrsBean: AttrsBean
+    private val attrsBean: AttrsBean = AttrsBean()
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     override fun skinnableView() { // 根据自定义属性，获取styleable中的background属性
         val key = R.styleable.SkinnableRelativeLayout[R.styleable.SkinnableRelativeLayout_android_background]
@@ -40,7 +40,6 @@ class SkinnableRelativeLayout @JvmOverloads constructor(context: Context, attrs:
     }
 
     init {
-        attrsBean = AttrsBean()
         // 根据自定义属性，匹配控件属性的类型集合，如：background
         val typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.SkinnableRelativeLayout,

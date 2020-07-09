@@ -35,6 +35,9 @@
         <attr name="android:background" />
         <attr name="android:textColor" />
         <attr name="android:textColorHint" />
+
+        <!-- 字体属性 -->
+        <attr name="custom_typeface" />
     </declare-styleable>
 
 

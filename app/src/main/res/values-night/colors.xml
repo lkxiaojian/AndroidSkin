@@ -9,5 +9,5 @@
     <color name="commonTextColor1">#000000</color>
     <color name="skin_item_color">#000000</color>
 
-
+    <color name="commonTextColor12">@android:color/holo_red_light</color>
 </resources>

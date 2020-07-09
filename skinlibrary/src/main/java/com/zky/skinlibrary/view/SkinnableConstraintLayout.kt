@@ -17,7 +17,7 @@ class SkinnableConstraintLayout
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun skinnableView() {
         // 根据自定义属性，获取styleable中的background属性
-        val key = R.styleable.SkinnableLinearLayout[R.styleable.SkinnableConstraintLayout_android_background]
+        val key = R.styleable.SkinnableConstraintLayout[R.styleable.SkinnableConstraintLayout_android_background]
         // 根据styleable获取控件某属性的resourceId
         val backgroundResourceId = attrsBean.getViewResource(key)
         if (backgroundResourceId > 0) { // 兼容包转换
@@ -31,7 +31,7 @@ class SkinnableConstraintLayout
     init {
         // 根据自定义属性，匹配控件属性的类型集合，如：background
         val typedArray = context?.obtainStyledAttributes(attrs,
-                R.styleable.SkinnableLinearLayout,
+                R.styleable.SkinnableConstraintLayout,
                 defStyleAttr, 0)
         // 存储到临时JavaBean对象
         attrsBean.saveViewResource(typedArray, R.styleable.SkinnableConstraintLayout)
