@@ -63,13 +63,10 @@ RecycleView
 在viewHodle 中调用 SkinManager.instance?.applyViews(view)
 
 public class BaseHolder extends RecyclerView.ViewHolder{
-
-
     public BaseHolder(@NonNull View itemView) {
         super(itemView);
         SkinManager.Companion.getInstance().applyViews(itemView);
-    }
-    
+    }  
 }
 
 
