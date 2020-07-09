@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import com.zky.myskin.R
 import com.zky.skinlibrary.SkinActivity
+import com.zky.skinlibrary.SkinManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -24,6 +25,7 @@ class MainActivity : SkinActivity() {
         bt_dynamic.setOnClickListener {
             start(NeightActivity::class.java,"2")
         }
+
 
     }
 

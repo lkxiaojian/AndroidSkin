@@ -34,7 +34,6 @@ class CustomAppCompatViewInflater(mContext: Context) {
         if (name.isNullOrBlank()) {
             return null
         }
-
         when {
             name!!.contains("LinearLayout") -> {
                 view = context?.let { SkinnableLinearLayout(it, attrs) }
@@ -61,23 +60,27 @@ class CustomAppCompatViewInflater(mContext: Context) {
                 view = SkinnableConstraintLayout(context, attrs)
                 verifyNotNull(view, name!!)
             }
-
+            name!!.contains("FrameLayout") -> {
+                view = SkinnableFrameLayout(context, attrs)
+                verifyNotNull(view, name!!)
+            }
 
         }
-        return view
-    }
 
-    /**
-     * 校验控件不为空（源码方法，由于private修饰，只能复制过来了。为了代码健壮，可有可无）
-     *
-     * @param view 被校验控件，如：AppCompatTextView extends TextView（v7兼容包，兼容是重点！！！）
-     * @param name 控件名，如："ImageView"
-     */
-    private fun verifyNotNull(view: View?, name: String) {
-        if (view == null) {
-            throw IllegalStateException(context?.javaClass?.name + " asked to inflate view for <" + name + ">, but returned null")
-        }
+    return view
+}
+
+/**
+ * 校验控件不为空（源码方法，由于private修饰，只能复制过来了。为了代码健壮，可有可无）
+ *
+ * @param view 被校验控件，如：AppCompatTextView extends TextView（v7兼容包，兼容是重点！！！）
+ * @param name 控件名，如："ImageView"
+ */
+private fun verifyNotNull(view: View?, name: String) {
+    if (view == null) {
+        throw IllegalStateException(context?.javaClass?.name + " asked to inflate view for <" + name + ">, but returned null")
     }
+}
 
 
 }

@@ -34,7 +34,8 @@ class SkinManager private constructor(private val application: Application) {
      *
      * @param skinPath 皮肤包路径，为空则加载app内置资源
      */
-    fun loaderSkinResources(skinPath: String?) { // 优化：如果没有皮肤包或者没做换肤动作，方法不执行直接返回！
+    fun loaderSkinResources(skinPath: String?) {
+        // 如果没有皮肤包或者没做换肤动作，方法不执行直接返回！
         if (TextUtils.isEmpty(skinPath)) {
             isDefaultSkin = true
             return
@@ -57,10 +58,8 @@ class SkinManager private constructor(private val application: Application) {
             addAssetPath.isAccessible = true
             // 执行addAssetPath方法
             addAssetPath.invoke(assetManager, skinPath)
-            //==============================================================================
-// 如果还是担心@hide限制，可以反射addAssetPathInternal()方法，参考源码366行 + 387行
-//==============================================================================
-// 创建加载外部的皮肤包()文件Resources（注：依然是本应用加载）
+
+          // 创建加载外部的皮肤包(mySkin.skin.apk  名字随便去)文件Resources（注：依然是本应用加载）
             skinResources = Resources(assetManager,
                     appResources.displayMetrics, appResources.configuration)
             // 根据apk文件路径（皮肤包也是apk文件），获取该应用的包名。兼容5.0 - 9.0（亲测）
