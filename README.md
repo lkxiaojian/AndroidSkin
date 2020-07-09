@@ -1,22 +1,35 @@
 # AndroidSkin
 
 1引用
+
  1.1 Add it in your root build.gradle at the end of repositories:
- ..
+ 
+ 
+    
    allprojects {
+   
+   
         repositories {
+        
+        
             ...
             maven { url 'https://jitpack.io' }
+            
+            
         }
+        
+        
     }
     
-  ..
+    
+    
+
 
  1.2 Add the dependency
  
    dependencies {
        implementation 'com.github.lkxiaojian:AndroidSkin:1.0.2'
-     }Ï
+     }
      
      
 2使用
@@ -41,6 +54,8 @@ delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO//夜间
  com.zky.myskin.views.CustomCircleView
 
 Fragment 
+
+
 调用 SkinManager.instance?.applyViews(view)
 
 RecycleView  
@@ -54,6 +69,7 @@ public class BaseHolder extends RecyclerView.ViewHolder{
         super(itemView);
         SkinManager.Companion.getInstance().applyViews(itemView);
     }
+    
 }
 
 
@@ -69,7 +85,6 @@ delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES. //日间
 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO//夜间
 
 在对应的src 中新建 drawable-night values-night 即可  
-
 
 
 
